@@ -1,151 +1,181 @@
 DataCraft AI
-DataCraft AI is an intelligent application designed to streamline the data preparation process for analysis and visualization, especially for tools like Tableau. It allows users to upload a CSV file and provide natural language prompts for data transformations. The AI then processes the request, generates a transformed CSV file, and offers insights and suggestions for visualization.
+DataCraft AI is an intelligent web application designed to empower users with self-service data preparation and visualization insights. It simplifies the often-complex process of transforming raw CSV data into a clean, analysis-ready format, and provides AI-driven suggestions for creating impactful visualizations in tools like Tableau.
 
-Features
-CSV Upload: Easily upload your raw CSV datasets.
+✨ Features
+CSV Data Upload: Securely upload your raw Comma Separated Values (CSV) datasets.
 
-Natural Language Processing: Describe your desired data transformations and analyses using plain English prompts.
+Natural Language Prompting: Describe your desired data transformations, aggregations, and analytical goals using intuitive natural language.
 
-AI-Powered Data Transformation: The backend, powered by Ollama (Mistral), generates Python (Pandas) scripts to clean, filter, aggregate, or select data based on your prompt.
+AI-Powered Data Transformation: Leverages Ollama (with the Mistral model) on the backend to interpret your prompts and generate precise Python (Pandas) scripts. These scripts perform operations like column selection, filtering, aggregation, and data cleaning.
 
-Transformed CSV Download: Download the cleaned and transformed CSV file, ready for direct import into Tableau or other visualization tools.
+Transformed CSV Download: Download the resulting clean and transformed CSV file, perfectly prepared for direct import into Tableau Desktop or other business intelligence tools.
 
-Tableau Visualization Suggestions: Receive AI-generated suggestions and notes on how to best visualize your transformed data in Tableau Desktop.
+Tableau Visualization Suggestions: Receive intelligent, AI-generated recommendations and notes on how to best visualize your newly processed data, tailored to your original prompt.
 
-Local History: Your interaction history (prompts and results) is stored locally in your browser for easy access.
+Local History Persistence: Your past interactions, including prompts, AI suggestions, and download links, are conveniently stored locally in your browser, allowing you to revisit previous sessions.
 
-Screenshots
-Main Dashboard & Input/Output
-The main dashboard where users can upload CSVs, enter prompts, and view the generated output and download the processed CSV.
+📸 Screenshots
+Main Dashboard & Input/Output Flow
+An overview of the DataCraft AI dashboard, showcasing the CSV upload and prompt input on the left, and the dynamically updated AI-generated output with the download option on the right.
 
-Transformed CSV Output in Spreadsheet
-An example of the transformed CSV output opened in a spreadsheet application, showing the results of an AI-driven data transformation.
+Transformed Data in Spreadsheet
+A glimpse of the AI-transformed CSV file opened in a spreadsheet application, demonstrating the precise data manipulation based on a user's prompt (e.g., specific columns and filtered data).
 
-Technologies Used
-Frontend
-React: For building the user interface.
+🛠️ Technologies Used
+Frontend (React Application)
+React: A JavaScript library for building user interfaces.
 
-Axios: For making HTTP requests to the backend.
+Axios: A promise-based HTTP client for making API requests.
 
-CSS: For styling, including responsive design.
+CSS: For custom styling and responsive design.
 
-Local Storage: For client-side history persistence.
+Local Storage: Browser API used for client-side persistence of interaction history.
 
-Backend
-FastAPI: A modern, fast (high-performance) web framework for building APIs with Python.
+Backend (FastAPI Python API)
+FastAPI: A modern, fast (high-performance) web framework for building APIs with Python 3.7+.
 
-Ollama (Mistral): Used as the Large Language Model (LLM) to interpret user prompts and generate data transformation instructions and visualization suggestions.
+Ollama (Mistral): Serves as the Large Language Model (LLM) backend, interpreting natural language prompts and generating Python data transformation scripts and visualization insights.
 
-Pandas: A powerful Python library for data manipulation and analysis, used to execute the AI-generated transformation scripts.
+Pandas: The foundational Python library for data manipulation and analysis, used to execute the AI-generated transformation scripts.
 
-uuid: For generating unique identifiers for temporary files.
+uuid: For generating universally unique identifiers for temporary file management.
 
-shutil & os: For file system operations and managing temporary file storage.
+shutil & os: Python's standard utility modules for high-level file operations and interacting with the operating system.
 
-Getting Started
-To get DataCraft AI up and running on your local machine, follow these steps.
+🚀 Getting Started
+Follow these instructions to get a copy of DataCraft AI up and running on your local machine for development and testing purposes.
 
 Prerequisites
-Python 3.8+
+Before you begin, ensure you have the following installed:
 
-Node.js and npm (or Yarn)
+Python 3.8+: python.org
 
-Git
+Node.js & npm (or Yarn): nodejs.org
 
-Ollama installed and running with the mistral model (or deepseek-coder if you switch models in ollama_handler.py).
+Git: git-scm.com
 
-Download Ollama from ollama.ai.
+Ollama:
 
-Pull the mistral model: ollama pull mistral
+Download and install Ollama from ollama.ai.
+
+After installation, pull the mistral model (this is crucial for the backend's AI functionality):
+
+ollama pull mistral
 
 Installation
-Clone the repository:
+Clone the DataCraft AI Repository:
+Navigate to your desired directory in your terminal and clone the project:
 
 git clone https://github.com/DhirajSharma89/DataCraftAI.git
 cd DataCraftAI
 
 Backend Setup:
+Navigate into the backend directory, create and activate a Python virtual environment, and install the necessary dependencies.
 
 cd backend
 python -m venv .venv_hyper # Create a virtual environment named .venv_hyper
-.\.venv_hyper\Scripts\activate # Activate on Windows PowerShell
-# For Git Bash/Linux/macOS: source ./.venv_hyper/bin/activate
+
+# Activate the virtual environment:
+# On Windows PowerShell:
+.\.venv_hyper\Scripts\activate
+# On Git Bash / Linux / macOS:
+source ./.venv_hyper/bin/activate
 
 pip install -r requirements.txt
 
-Your requirements.txt should contain:
+Ensure your backend/requirements.txt file contains:
 
 fastapi
 uvicorn
 python-multipart
 ollama
 pandas
-# If you are working with .hyper files for Tableau directly:
+# If you intend to work with Tableau Hyper API directly (e.g., for .hyper files):
 # tableauhyperapi
 
-Note on tableauhyperapi: If your backend logic uses tableauhyperapi (as seen in some previous discussions), ensure it's in your requirements.txt. It's a binary dependency and might require specific system setup for installation. If you are only outputting CSVs, you can omit it.
+(Note: tableauhyperapi is optional if your current focus is solely on CSV output, but good to include if .hyper generation is a future feature.)
 
 Frontend Setup:
+Navigate into the frontend directory and install the Node.js dependencies:
 
-cd ../frontend # Go back to the DataCraftAI root, then into frontend
+cd ../frontend # Go back to the DataCraftAI root, then into the frontend folder
 npm install
 
 Running the Application
+Once both the backend and frontend dependencies are installed, you can start the application. You will need two separate terminal windows.
+
 Start the Backend Server:
-Open a new terminal, navigate to the backend directory, activate its virtual environment, and start the FastAPI server:
+In your first terminal, navigate to the backend directory, activate your virtual environment, and start the FastAPI server:
 
 cd E:\Projects\DataCraftAI\backend
 .\.venv_hyper\Scripts\activate # For Windows PowerShell
 # For Git Bash/Linux/macOS: source ./.venv_hyper/bin/activate
+
 uvicorn main:app --reload
 
-(The --reload flag is useful for development as it restarts the server on code changes).
+(The --reload flag is recommended during development as it automatically restarts the server when code changes are detected.)
 
 Start the Frontend Development Server:
-Open another new terminal, navigate to the frontend directory, and start the React development server:
+In your second terminal, navigate to the frontend directory and start the React development server:
 
 cd E:\Projects\DataCraftAI\frontend
 npm run dev
 
 Access the Application:
-Once both servers are running, open your web browser and go to the address displayed by the frontend server (usually http://localhost:5173/ or similar).
+After both servers are successfully running, open your web browser and go to the address displayed by the frontend server (typically http://localhost:5173/).
 
-Project Structure
+📂 Project Structure
 DataCraftAI/
 ├── backend/
 │   ├── main.py                     # FastAPI application entry point
 │   ├── ollama_handler.py           # Handles communication with Ollama and prompt engineering
-│   ├── pbip_generator.py (or hyper_generator.py) # Logic for generating PBIP/Hyper files if applicable
-│   ├── requirements.txt            # Python dependencies
-│   ├── .venv_hyper/                # Python virtual environment (ignored by Git)
-│   ├── __pycache__/                # Python cache files (ignored by Git)
-│   ├── uploads/                    # Temporary storage for uploaded CSVs (ignored by Git)
-│   └── output/                     # Generated CSVs/Hyper/PBIP files (ignored by Git)
+│   ├── pbip_generator.py (or hyper_generator.py) # Logic for generating PBIP/Hyper files (if implemented)
+│   ├── requirements.txt            # Python dependencies list
+│   ├── .venv_hyper/                # Python virtual environment (IGNORED by Git)
+│   ├── __pycache__/                # Python compiled bytecode cache (IGNORED by Git)
+│   ├── uploads/                    # Temporary storage for uploaded CSVs (IGNORED by Git)
+│   └── output/                     # Directory for generated CSVs/other output (IGNORED by Git)
 ├── frontend/
-│   ├── public/                     # Static assets
+│   ├── public/                     # Static assets (e.g., index.html, favicon)
 │   ├── src/
-│   │   ├── App.jsx                 # Main React component
-│   │   ├── App.css                 # Global CSS for the app
-│   │   ├── main.jsx (or index.jsx) # React entry point
-│   │   └── components/
-│   │       ├── About.jsx           # About page component (NEW)
-│   │       ├── About.css           # Styling for the About page (NEW)
-│   │       ├── Sidebar.jsx         # Sidebar navigation component
-│   │       └── Sidebar.css         # Styling for the Sidebar
-│   ├── index.html                  # HTML template for the React app
-│   ├── package.json                # Frontend dependencies and scripts
-│   ├── package-lock.json
-│   ├── vite.config.js              # Vite configuration
-│   └── node_modules/               # Frontend dependencies (ignored by Git)
-├── .gitignore                      # Specifies files/folders to ignore in Git
-├── README.md                       # This file
-└── (other project-level files, e.g., license, docs)
+│   │   ├── App.jsx                 # Main React application component
+│   │   ├── App.css                 # Global styling for the main application layout
+│   │   ├── main.jsx (or index.jsx) # React application entry point (e.g., ReactDOM.createRoot)
+│   │   └── components/             # Reusable React components
+│   │       ├── About.jsx           # Component for the 'About' page content
+│   │       ├── About.css           # Styling for the 'About' page
+│   │       ├── Sidebar.jsx         # Navigation sidebar component
+│   │       └── Sidebar.css         # Styling for the sidebar
+│   ├── index.html                  # Main HTML file for the React app
+│   ├── package.json                # Frontend project metadata and dependencies
+│   ├── package-lock.json           # Records exact dependency versions
+│   ├── vite.config.js              # Configuration for Vite development server and build
+│   └── node_modules/               # Installed JavaScript packages (IGNORED by Git)
+├── .gitignore                      # Specifies intentionally untracked files/directories
+├── README.md                       # This README file
+└── (any other project-level documentation, license files, etc.)
 
-Contributing
-(Add information on how others can contribute to your project, e.g., fork the repository, create a new branch, make changes, submit a pull request.)
+🤝 Contributing
+Contributions are welcome! If you have suggestions for improvements, new features, or bug fixes, please feel free to:
 
-License
-(Specify your project's license, e.g., MIT, Apache 2.0, etc.)
+Fork the repository.
 
-Contact
-For questions or feedback, please contact [Your Name/Email/GitHub Profile Link]
+Create a new branch (git checkout -b feature/YourFeatureName).
+
+Make your changes.
+
+Commit your changes (git commit -m 'Add YourFeatureName').
+
+Push to the branch (git push origin feature/YourFeatureName).
+
+Open a Pull Request.
+
+📄 License
+This project is licensed under the MIT License - see the LICENSE file (if you create one) for details.
+
+📧 Contact
+For any questions or feedback, please reach out to Dhiraj Sharma:
+
+GitHub: DhirajSharma89
+
+(Optional: Add your Email, LinkedIn, etc.)
